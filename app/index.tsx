@@ -9,13 +9,13 @@ const image = {
 export default function Onboarding() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container} edges={["left", "right"]}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground
           source={image}
           resizeMode="cover"
           style={styles.image}
         ></ImageBackground>
-        <Text style={styles.text1}>Bem-vindo ao Visit Recife 🌴</Text>
+        <Text style={styles.text1}>Bem-vindo ao Visit Recife🌴</Text>
         <Text
           style={{ color: "#1b1818", textAlign: "center", marginBottom: 40 }}
         >
@@ -35,6 +35,13 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 40,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
     justifyContent: "center",
     alignItems: "center",
   },
