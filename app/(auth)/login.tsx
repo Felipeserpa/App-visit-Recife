@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-const backgroundImage = require("../../assets/images/visit.png");
+// @ts-ignore
+const logoImage = require("../../assets/images/logo.png"); // Adicione o caminho do seu logo aqui
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,9 +31,9 @@ export default function Login() {
       <View style={styles.container}>
         {/* A View 'overlay' ajuda a dar contraste para o texto não sumir na foto */}
         <View style={styles.overlay}>
-          <Image source={backgroundImage} style={styles.image} />
           <SafeAreaView style={styles.content}>
             <View style={styles.container}>
+              <Image source={logoImage} style={styles.image} />
               <Text style={styles.text1}>Visit Recife Login 🌴</Text>
               <TextInput
                 placeholder="Email"

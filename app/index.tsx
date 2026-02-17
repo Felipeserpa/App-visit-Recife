@@ -1,5 +1,12 @@
 import { router } from "expo-router";
-import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 // Importando a imagem local
@@ -17,9 +24,7 @@ export default function Onboarding() {
           <View style={styles.overlay}>
             <SafeAreaView style={styles.content}>
               <View style={styles.textContainer}>
-                <Text style={styles.text1}>
-                  Bem-vindo ao Visit Recife... 🌴
-                </Text>
+                <Text style={styles.text1}>Bem-vindo ao Visit Recife🌴</Text>
                 <Text style={styles.description}>
                   Chega de roteiros genéricos. Descubra o que está acontecendo
                   agora, do Marco Zero ao Alto da Sé.
