@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 
 // @ts-ignore
 const logoImage = require("../../assets/images/logo.png"); // Adicione o caminho do seu logo aqui
@@ -47,6 +48,9 @@ export default function Login() {
                   borderRadius: 5,
                 }}
               />
+              <Link href="/forgot-password" style={styles.linkesqueci}>
+                Esqueci minha senha{" "}
+              </Link>
               <TextInput
                 placeholder="Senha"
                 value={password}
@@ -60,7 +64,9 @@ export default function Login() {
                   borderRadius: 5,
                 }}
               />
-
+              <Link href="/register" style={styles.link}>
+                Cadastra-se{" "}
+              </Link>
               <Text style={styles.description}>
                 Faça login para acessar os melhores roteiros personalizados e
                 descobrir o que está acontecendo agora, do Marco Zero ao Alto da
@@ -115,7 +121,21 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   description: {
-    color: "#1f1b1b",
+    color: "#f0ecec",
     textAlign: "center",
+  },
+  link: {
+    color: "#f0ecec",
+    marginBottom: 15,
+    //colocar par direita alignSelf: "flex-end",
+    alignSelf: "flex-start",
+    fontSize: 16,
+  },
+  linkesqueci: {
+    color: "#24648f",
+    marginBottom: 15,
+    //colocar par direita alignSelf: "flex-end",
+    alignSelf: "flex-end",
+    fontSize: 16,
   },
 });
