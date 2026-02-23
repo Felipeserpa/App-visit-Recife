@@ -1,89 +1,93 @@
-// app/(auth)/login.tsx
 import { router } from "expo-router";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  TouchableOpacity, // Melhor que o Button para estilizar
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 
-// @ts-ignore
-const logoImage = require("../../assets/images/logo.png"); // Adicione o caminho do seu logo aqui
+const logoImage = require("../../assets/images/logo.png");
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handlelogin() {
-    // Aqui você pode adicionar a lógica de autenticação, como chamar uma API
+  function handleLogin() {
     if (email && password) {
-      // Simulando um login bem-sucedido
       alert("Login bem-sucedido!");
-      console.log("Email:", email);
-      console.log("Senha:", password);
+      router.replace("/(tabs)/home"); // Exemplo de navegação
     } else {
       alert("Por favor, preencha email e senha.");
-      return;
     }
-
-    // Por enquanto, vamos apenas navegar para a tela de onboarding
   }
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: "#e6e3e3" }}>
-      <View style={styles.container}>
-        {/* A View 'overlay' ajuda a dar contraste para o texto não sumir na foto */}
-        <View style={styles.overlay}>
-          <SafeAreaView style={styles.content}>
-            <View style={styles.container}>
-              <Image source={logoImage} style={styles.image} />
-              <Text style={styles.text1}>Visit Recife Login 🌴</Text>
-              <TextInput
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                style={{
-                  backgroundColor: "#fff",
-                  width: "100%",
-                  marginBottom: 10,
-                  padding: 10,
-                  borderRadius: 5,
-                }}
-              />
-              <Link href="/forgot-password" style={styles.linkesqueci}>
-                Esqueci minha senha{" "}
-              </Link>
-              <TextInput
-                placeholder="Senha"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                style={{
-                  backgroundColor: "#fff",
-                  width: "100%",
-                  marginBottom: 10,
-                  padding: 10,
-                  borderRadius: 5,
-                }}
-              />
-              <Link href="/register" style={styles.link}>
-                Cadastra-se{" "}
-              </Link>
-              <Text style={styles.description}>
-                Faça login para acessar os melhores roteiros personalizados e
-                descobrir o que está acontecendo agora, do Marco Zero ao Alto da
-                Sé.
-              </Text>
-            </View>
+    <SafeAreaProvider>
+      {/* KeyboardAvoidingView evita que o teclado cubra os inputs */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <SafeAreaView style={styles.content}>
+          <View style={styles.header}>
+            <Image
+              source={logoImage}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.text1}>Bem-vindo de volta! 🌴</Text>
+          </View>
 
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Login"
-                color="#110f10" // Um rosa/vermelho que combina com Recife
-                onPress={handlelogin}
-              />
-            </View>
-          </SafeAreaView>
-        </View>
-      </View>
+          <View style={styles.form}>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#888"
+              value={email}
+              onChangeText={setEmail}
+              style={styles.input}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            <TouchableOpacity style={styles.linkEsqueciContainer}>
+              <Link style={styles.linkesqueci} href={"/register"}>
+                Esqueci minha senha
+              </Link>
+            </TouchableOpacity>
+
+            <TextInput
+              placeholder="Senha"
+              placeholderTextColor="#888"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={styles.input}
+            />
+
+            <Link href="/register" style={styles.linkCadastro}>
+              Ainda não tem conta?{" "}
+              <Text style={{ fontWeight: "bold" }}>Cadastre-se</Text>
+            </Link>
+          </View>
+
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={styles.buttonMain}
+              onPress={handleLogin}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.buttonText}>ENTRAR</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 }
@@ -91,51 +95,79 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    flex: 1,
-    width: "100%",
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.3)", // Escurece um pouco a imagem para o texto branco brilhar
-    justifyContent: "center",
+    backgroundColor: "#f5f5f5", // Fundo levemente cinza
   },
   content: {
     flex: 1,
-    padding: 20,
-    justifyContent: "space-between",
+    paddingHorizontal: 30,
+    justifyContent: "space-around",
   },
-  buttonContainer: {
-    marginBottom: 20,
-    width: "100%",
-    paddingHorizontal: 20,
-    padding: 50,
-    borderRadius: 5,
+  header: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  logo: {
+    width: 200,
+    height: 140,
+    marginBottom: 10,
+    borderRadius: 20, // BORDAS ARREDONDADAS DA IMAGEM
+    borderWidth: 1,
+    borderColor: "#3894ac",
   },
   text1: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: "bold",
-    color: "#fff",
-  },
-  description: {
-    color: "#f0ecec",
+    color: "#333",
     textAlign: "center",
   },
-  link: {
-    color: "#f0ecec",
-    marginBottom: 15,
-    //colocar par direita alignSelf: "flex-end",
-    alignSelf: "flex-start",
+  form: {
+    width: "100%",
+  },
+  input: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 55,
+    borderRadius: 12, // BORDAS ARREDONDADAS DO INPUT
+    paddingHorizontal: 15,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    marginBottom: 5,
+  },
+  linkEsqueciContainer: {
+    alignSelf: "flex-end",
+    marginBottom: 15,
   },
   linkesqueci: {
-    color: "#24648f",
-    marginBottom: 15,
-    //colocar par direita alignSelf: "flex-end",
-    alignSelf: "flex-end",
-    fontSize: 16,
+    color: "#3894ac",
+    fontSize: 14,
+  },
+  linkCadastro: {
+    color: "#666",
+    textAlign: "center",
+    marginTop: 15,
+    fontSize: 15,
+  },
+  footer: {
+    width: "100%",
+    paddingBottom: 20,
+  },
+  buttonMain: {
+    backgroundColor: "#3894ac",
+    height: 55,
+    borderRadius: 25, // BORDAS BEM REDONDAS DO BOTÃO
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 3, // Sombrinha no Android
+    shadowColor: "#000", // Sombrinha no iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    letterSpacing: 1,
   },
 });
